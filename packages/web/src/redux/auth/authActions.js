@@ -16,7 +16,7 @@ export const signUp = formData => async dispatch => {
     const { data } = await API.signUp(formData);
     dispatch(signUpSuccess(data));
   } catch (error) {
-    dispatch(signUpError(error.message));
+    dispatch(signUpError(error.response.data.message));
   }
 };
 
@@ -26,7 +26,7 @@ export const signIn = formData => async dispatch => {
     const { data } = await API.signIn(formData);
     dispatch(signUpSuccess(data));
   } catch (error) {
-    dispatch(signUpError(error.message));
+    dispatch(signUpError(error.response.data.message));
   }
 };
 
