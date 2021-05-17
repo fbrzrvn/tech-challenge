@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import { resetAuthState, signIn } from "../../redux/auth/authActions";
+import { authSelector } from "../../redux/auth/authSelector";
 import * as ROUTES from "../../routes";
 import Button from "../Button";
 import {
@@ -16,6 +19,10 @@ import {
 } from "./styles";
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
+  const { isSigningUp, signUpError, isAuthenticated } = useSelector(
+    authSelector,
+  );
   const {
     register,
     formState: { errors },
@@ -25,9 +32,17 @@ const SignInForm = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    dispatch(resetAuthState());
+  }, [dispatch]);
+
+  const onSubmit = data => {
+    dispatch(signIn(data));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to={ROUTES.HOME} />;
+  }
 
   return (
     <Container>
@@ -40,7 +55,7 @@ const SignInForm = () => {
               name="email"
               type="email"
               placeholder="Enter your email"
-              onChange={(e) => setValue("email", e.target.value)}
+              onChange={e => setValue("email", e.target.value)}
               {...register("email", {
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -56,7 +71,7 @@ const SignInForm = () => {
               name="password"
               type="password"
               placeholder="Enter your password"
-              onChange={(e) => setValue("password", e.target.value)}
+              onChange={e => setValue("password", e.target.value)}
               {...register("password", {
                 minLength: {
                   value: 6,
@@ -67,7 +82,8 @@ const SignInForm = () => {
               error={errors.password}
             />
             {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
-            <Button>Sign In</Button>
+            {signUpError && <ErrorMsg>{signUpError}</ErrorMsg>}
+            <Button disabled={isSigningUp}>Sign In</Button>
             <LinkWrap>
               <Link to={ROUTES.SIGN_UP}>
                 Don&apos;t have an account? Sign Up

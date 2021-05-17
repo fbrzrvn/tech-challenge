@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import { resetAuthState, signUp } from "../../redux/auth/authActions";
+import { authSelector } from "../../redux/auth/authSelector";
 import * as ROUTES from "../../routes";
 import Button from "../Button";
 import {
@@ -16,6 +19,10 @@ import {
 } from "./styles";
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
+  const { isSigningUp, signUpError, isAuthenticated } = useSelector(
+    authSelector,
+  );
   const {
     register,
     formState: { errors },
@@ -25,9 +32,17 @@ const SignUpForm = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    dispatch(resetAuthState());
+  }, [dispatch]);
+
+  const onSubmit = data => {
+    dispatch(signUp(data));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to={ROUTES.HOME} />;
+  }
 
   return (
     <Container>
@@ -40,7 +55,7 @@ const SignUpForm = () => {
               name="firstName"
               type="text"
               placeholder="Enter your first name"
-              onChange={(e) => setValue("firstName", e.target.value)}
+              onChange={e => setValue("firstName", e.target.value)}
               {...register("firstName", {
                 required: "Please enter your first name",
               })}
@@ -55,7 +70,7 @@ const SignUpForm = () => {
               name="lastName"
               type="text"
               placeholder="Enter your last name"
-              onChange={(e) => setValue("lastName", e.target.value)}
+              onChange={e => setValue("lastName", e.target.value)}
               {...register("lastName", {
                 required: "Please enter your last name",
               })}
@@ -68,7 +83,7 @@ const SignUpForm = () => {
               name="email"
               type="text"
               placeholder="Enter your email"
-              onChange={(e) => setValue("email", e.target.value)}
+              onChange={e => setValue("email", e.target.value)}
               {...register("email", {
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -84,11 +99,11 @@ const SignUpForm = () => {
               name="password"
               type="password"
               placeholder="Enter your password"
-              onChange={(e) => setValue("password", e.target.value)}
+              onChange={e => setValue("password", e.target.value)}
               {...register("password", {
                 minLength: {
                   value: 6,
-                  message: "Password must be al least 6 char long", // JS only: <p>error message</p> TS only support string
+                  message: "Password must be al least 6 char long",
                 },
                 required: "Please enter a password",
               })}
@@ -100,11 +115,11 @@ const SignUpForm = () => {
               name="confirmPassword"
               type="password"
               placeholder="Repeat your password"
-              onChange={(e) => setValue("confirmPassword", e.target.value)}
+              onChange={e => setValue("confirmPassword", e.target.value)}
               {...register("confirmPassword", {
                 minLength: {
                   value: 6,
-                  message: "Password must be al least 6 char long", // JS only: <p>error message</p> TS only support string
+                  message: "Password must be al least 6 char long",
                 },
                 required: "Please enter a repeated password",
               })}
@@ -113,7 +128,8 @@ const SignUpForm = () => {
             {errors.confirmPassword && (
               <ErrorMsg>{errors.confirmPassword.message}</ErrorMsg>
             )}
-            <Button>Sign In</Button>
+            {signUpError && <ErrorMsg>{signUpError}</ErrorMsg>}
+            <Button disabled={isSigningUp}>Sign In</Button>
             <LinkWrap>
               <Link to={ROUTES.SIGN_IN}>Already have an account? Sign In</Link>
             </LinkWrap>
