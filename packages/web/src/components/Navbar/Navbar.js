@@ -1,7 +1,12 @@
 import { func } from "prop-types";
 import React from "react";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import useWindowSize from "../../hooks/useWindowSize";
+import { signOut } from "../../redux/auth/authActions";
+import { authSelector } from "../../redux/auth/authSelector";
+import * as ROUTES from "../../routes";
 import Button from "../Button";
 import SearchBar from "../SearchBar";
 import {
@@ -16,6 +21,13 @@ import {
 
 const Navbar = ({ toggleNavbar }) => {
   const width = useWindowSize();
+  const { isAuthenticated } = useSelector(authSelector);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    isAuthenticated ? dispatch(signOut()) : history.push(ROUTES.SIGN_IN);
+  };
 
   return (
     <Nav>
@@ -38,7 +50,9 @@ const Navbar = ({ toggleNavbar }) => {
           <NavItem>
             <NavLink to="/">Upload</NavLink>
           </NavItem>
-          <Button>SignIn</Button>
+          <Button onClick={handleClick}>
+            {isAuthenticated ? "Logout" : "Login"}
+          </Button>
         </NavMenu>
       </NavContainer>
     </Nav>
