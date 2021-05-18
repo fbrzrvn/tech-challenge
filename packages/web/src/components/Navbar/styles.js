@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR } from "../../styles/colors";
 
@@ -67,7 +67,7 @@ export const NavItem = styled.li`
   height: 80px;
 `;
 
-export const NavLink = styled(Link)`
+export const NavbarLink = styled(NavLink)`
   color: ${COLOR.text};
   display: flex;
   align-items: center;
@@ -81,6 +81,7 @@ export const NavLink = styled(Link)`
     transition: all 300ms ease-in-out;
   }
   &.active {
-    border-bottom: 3px solid ${COLOR.deepPurple700};
+    color: ${COLOR.deepPurple500};
+    font-weight: 600;
   }
 `;

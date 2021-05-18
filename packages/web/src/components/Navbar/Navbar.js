@@ -12,9 +12,9 @@ import SearchBar from "../SearchBar";
 import {
   MobileIcon,
   Nav,
+  NavbarLink,
   NavContainer,
   NavItem,
-  NavLink,
   NavLogo,
   NavMenu,
 } from "./styles";
@@ -39,16 +39,16 @@ const Navbar = ({ toggleNavbar }) => {
         {width > 768 && <SearchBar />}
         <NavMenu>
           <NavItem>
-            <NavLink to="/">Gifs</NavLink>
+            <NavbarLink to="/gifs">Gifs</NavbarLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/">Jokes</NavLink>
+            <NavbarLink to="/jokes">Jokes</NavbarLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/">Memes</NavLink>
+            <NavbarLink to="/meme">Memes</NavbarLink>
           </NavItem>
           <NavItem>
-            <NavLink to={ROUTES.UPLOAD_FILE}>Upload</NavLink>
+            <NavbarLink to={ROUTES.UPLOAD_FILE}>Upload</NavbarLink>
           </NavItem>
           <Button onClick={handleClick}>
             {isAuthenticated ? "Logout" : "Login"}
