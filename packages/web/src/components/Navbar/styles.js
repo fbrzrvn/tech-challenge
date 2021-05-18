@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { COLOR } from "../../styles/colors";
 
 export const Nav = styled.nav`
-  background: ${({ scrollNav }) => (scrollNav ? COLOR.navbar : "transparent")};
+  background: ${COLOR.navbar};
   height: 80px;
   display: flex;
   justify-content: center;
