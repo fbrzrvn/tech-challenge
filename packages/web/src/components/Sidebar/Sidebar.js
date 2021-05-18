@@ -34,13 +34,13 @@ const Sidebar = ({ toggleNavbar, isOpen }) => {
       <SidebarWrapper>
         <SearchBar />
         <SidebarMenu>
-          <SidebarLink to="/" onClick={toggleNavbar}>
+          <SidebarLink to={ROUTES.GIF} onClick={toggleNavbar}>
             Gifs
           </SidebarLink>
-          <SidebarLink to="/" onClick={toggleNavbar}>
+          <SidebarLink to={ROUTES.JOKE} onClick={toggleNavbar}>
             Jokes
           </SidebarLink>
-          <SidebarLink to="/" onClick={toggleNavbar}>
+          <SidebarLink to={ROUTES.MEME} onClick={toggleNavbar}>
             Memes
           </SidebarLink>
           <SidebarLink to={ROUTES.UPLOAD_FILE} onClick={toggleNavbar}>

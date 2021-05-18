@@ -39,13 +39,13 @@ const Navbar = ({ toggleNavbar }) => {
         {width > 768 && <SearchBar />}
         <NavMenu>
           <NavItem>
-            <NavbarLink to="/gifs">Gifs</NavbarLink>
+            <NavbarLink to={ROUTES.GIF}>Gifs</NavbarLink>
           </NavItem>
           <NavItem>
-            <NavbarLink to="/jokes">Jokes</NavbarLink>
+            <NavbarLink to={ROUTES.JOKE}>Jokes</NavbarLink>
           </NavItem>
           <NavItem>
-            <NavbarLink to="/meme">Memes</NavbarLink>
+            <NavbarLink to={ROUTES.MEME}>Memes</NavbarLink>
           </NavItem>
           <NavItem>
             <NavbarLink to={ROUTES.UPLOAD_FILE}>Upload</NavbarLink>
