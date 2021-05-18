@@ -14,7 +14,7 @@ export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 648px) {
     width: 100%;
   }
 `;
@@ -50,6 +50,50 @@ export const FormWrap = styled.form`
   margin: 0 auto;
   @media screen and (max-width: 480px) {
     padding: 32px 16px;
+  }
+`;
+
+export const SelectWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Select = styled.div`
+  display: flex;
+  align-items: center;
+  height: 48px;
+  position: relative;
+  margin-bottom: 16px;
+`;
+
+export const RadioButtonLabel = styled.label`
+  position: absolute;
+  top: 25%;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid ${COLOR.deepPurple300};
+`;
+export const RadioButton = styled.input`
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  &:hover ~ ${RadioButtonLabel} {
+    background: ${COLOR.deepPurple300};
+  }
+  &:checked + ${Select} {
+    background: ${COLOR.deepPurple300};
+    border: 2px solid ${COLOR.deepPurple700};
+  }
+  &:checked + ${RadioButtonLabel} {
+    background: ${COLOR.deepPurple300};
+    border: 1px solid ${COLOR.deepPurple700};
   }
 `;
 
@@ -102,20 +146,5 @@ export const LinkWrap = styled.div`
   }
   @media screen and (max-width: 480px) {
     text-align: center;
-  }
-`;
-
-export const ErrorMsg = styled.p`
-  color: ${COLOR.danger900};
-  background: ${COLOR.danger100};
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: ${({ file }) => (file ? "8px" : "-16px")};
-  margin-bottom: ${({ file }) => (file ? "0" : "24px")};
-  padding: 16px;
-  &.last {
-    margin-top: -24px;
-    margin-bottom: 32px;
   }
 `;

@@ -1,11 +1,12 @@
-import { string } from "prop-types";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { JOKE } from "../../utils/fileTypes";
+import FileBase from "react-file-base64";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { authSelector } from "../../redux/auth/authSelector";
+import { createPost } from "../../redux/post/postActions";
 import Button from "../Button";
 import {
   Container,
-  ErrorMsg,
   FileInputWrap,
   FormContent,
   FormH1,
@@ -14,98 +15,125 @@ import {
   FormTextarea,
   FormWrap,
   FormWrapper,
+  Select,
+  SelectWrap,
+  RadioButton,
+  RadioButtonLabel,
 } from "./styles";
 
-const UploadForm = ({ fileType }) => {
-  const [image, setImage] = useState("");
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-  } = useForm({
-    mode: "onBlur",
-  });
-
-  const handleImg = e => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result;
-        setImage(base64String);
-      };
-      reader.readAsDataURL(file);
-    }
+const UploadForm = () => {
+  const { currentUser } = useSelector(authSelector);
+  const initialState = {
+    title: "",
+    description: "",
+    media: "",
+    category: "Gif",
+    author: currentUser.user._id,
   };
 
-  const onSubmit = data => {
-    console.log(data);
+  const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    dispatch(createPost(formData));
+    history.push("/");
+    setFormData(initialState);
   };
 
   return (
     <Container>
       <FormWrapper>
         <FormContent>
-          <FormH1>Add a {fileType}</FormH1>
-          <FormWrap onSubmit={handleSubmit(onSubmit)}>
+          <FormH1>Create a new Post</FormH1>
+          <FormWrap onSubmit={handleSubmit}>
+            <FormLabel>Category</FormLabel>
+            <SelectWrap>
+              <Select>
+                <RadioButton
+                  type="radio"
+                  name="radio"
+                  value="Gif"
+                  checked={formData.category === "Gif"}
+                  onChange={e =>
+                    setFormData({ ...formData, category: e.target.value })
+                  }
+                />
+                <RadioButtonLabel />
+                <div>Gif</div>
+              </Select>
+              <Select>
+                <RadioButton
+                  type="radio"
+                  name="radio"
+                  value="Meme"
+                  checked={formData.category === "Meme"}
+                  onChange={e =>
+                    setFormData({ ...formData, category: e.target.value })
+                  }
+                />
+                <RadioButtonLabel />
+                <div>Meme</div>
+              </Select>
+              <Select>
+                <RadioButton
+                  type="radio"
+                  name="radio"
+                  value="Joke"
+                  checked={formData.category === "Joke"}
+                  onChange={e =>
+                    setFormData({ ...formData, category: e.target.value })
+                  }
+                />
+                <RadioButtonLabel />
+                <div>Joke</div>
+              </Select>
+            </SelectWrap>
             <FormLabel>Title</FormLabel>
             <FormInput
               name="title"
               type="text"
               placeholder="Enter a title"
-              onChange={e => setValue("title", e.target.value)}
-              {...register("title", {
-                required: "Please enter a title",
-              })}
-              error={errors.title}
+              value={formData.title}
+              onChange={e =>
+                setFormData({ ...formData, title: e.target.value })
+              }
             />
-            {errors.title && <ErrorMsg>{errors.title.message}</ErrorMsg>}
-            {fileType === JOKE ? (
+            {formData.category === "Joke" ? (
               <>
-                <FormLabel>Joke</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormTextarea
-                  name="joke"
-                  placeholder="Write here your joke"
+                  name="description"
+                  placeholder="Enter a description"
                   rows={5}
                   cols={5}
-                  onChange={e => setValue("joke", e.target.value)}
-                  {...register("joke", {
-                    required: "Please enter a joke",
-                  })}
-                  error={errors.joke}
+                  value={formData.description}
+                  onChange={e =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
-                {errors.joke && <ErrorMsg>{errors.joke.message}</ErrorMsg>}
               </>
             ) : (
               <FileInputWrap>
                 <FormLabel>Upload a file</FormLabel>
-                <FormInput
-                  name="media"
+                <FileBase
                   type="file"
-                  accept=".png, .jpg, .jpeg, .gif"
-                  onChange={handleImg}
-                  {...register("media", {
-                    required: "A file is required",
-                  })}
-                  error={errors.media}
+                  name="media"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                    setFormData({ ...formData, media: base64 })
+                  }
                 />
-                {errors.media && (
-                  <ErrorMsg file>{errors.media.message}</ErrorMsg>
-                )}
               </FileInputWrap>
             )}
+
             <Button>Send</Button>
           </FormWrap>
         </FormContent>
       </FormWrapper>
     </Container>
   );
-};
-
-UploadForm.propTypes = {
-  fileType: string.isRequired,
 };
 
 export default UploadForm;

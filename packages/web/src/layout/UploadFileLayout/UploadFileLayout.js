@@ -13,7 +13,7 @@ const UploadFileLayout = ({ children }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push(ROUTES.SIGN_UP);
+    history.push(ROUTES.SIGN_IN);
   };
 
   return (
@@ -26,11 +26,11 @@ const UploadFileLayout = ({ children }) => {
         <Card>
           <CardTitle>Sign up to continue</CardTitle>
           <CardBody>
-            You&apos;ll need to sign up before upload any content
+            You&apos;ll need to sign in before upload any content
           </CardBody>
-          <Button onClick={handleClick}>Sign Up</Button>
+          <Button onClick={handleClick}>Sign In</Button>
           <LinkWrap>
-            <Link to={ROUTES.SIGN_IN}>Already have an account? Sign In</Link>
+            <Link to={ROUTES.SIGN_UP}>Don&apos;t have an account? Sign Up</Link>
           </LinkWrap>
         </Card>
       )}
