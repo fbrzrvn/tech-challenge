@@ -1,0 +1,9 @@
+export const UPLOAD_REQUEST = "UPLOAD_REQUEST";
+export const UPLOAD_ERROR = "UPLOAD_ERROR";
+export const UPLOAD_SUCCESS = "UPLOAD_SUCCESS";
+
+export const FETCH_REQUEST = "FETCH_REQUEST";
+export const FETCH_ERROR = "FETCH_ERROR";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+
+export const RESET_POST_STATE = "RESET_POST_STATE";
