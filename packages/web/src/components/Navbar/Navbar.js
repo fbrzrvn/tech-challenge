@@ -48,7 +48,7 @@ const Navbar = ({ toggleNavbar }) => {
             <NavLink to="/">Memes</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/">Upload</NavLink>
+            <NavLink to={ROUTES.UPLOAD_FILE}>Upload</NavLink>
           </NavItem>
           <Button onClick={handleClick}>
             {isAuthenticated ? "Logout" : "Login"}

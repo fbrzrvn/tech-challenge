@@ -43,7 +43,7 @@ const Sidebar = ({ toggleNavbar, isOpen }) => {
           <SidebarLink to="/" onClick={toggleNavbar}>
             Memes
           </SidebarLink>
-          <SidebarLink to="/" onClick={toggleNavbar}>
+          <SidebarLink to={ROUTES.UPLOAD_FILE} onClick={toggleNavbar}>
             Upload
           </SidebarLink>
           <SidebarBtn>
