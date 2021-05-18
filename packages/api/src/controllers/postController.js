@@ -1,12 +1,8 @@
-const { logger } = require("../services");
 const { Post } = require("../models");
 
 const createPost = async (req, res) => {
   const postData = req.body;
   const newPost = new Post(postData);
-
-  logger.debug(req.body);
-  logger.debug(newPost);
 
   try {
     await newPost.save();
@@ -16,4 +12,13 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost };
+const fetchPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+module.exports = { createPost, fetchPosts };
