@@ -29,3 +29,28 @@ export const createPost = post => async dispatch => {
   }
   return resetPostState();
 };
+
+export const fetchRequest = () => ({
+  type: postTypes.FETCH_REQUEST,
+});
+
+export const fetchError = message => ({
+  type: postTypes.FETCH_ERROR,
+  payload: message,
+});
+
+export const fetchSuccess = posts => ({
+  type: postTypes.FETCH_SUCCESS,
+  payload: posts,
+});
+
+export const getPosts = () => async dispatch => {
+  dispatch(fetchRequest());
+  try {
+    const { data } = await API.fetchPosts();
+    dispatch(fetchSuccess(data));
+  } catch (error) {
+    dispatch(fetchError(error.message));
+  }
+  dispatch(resetPostState);
+};

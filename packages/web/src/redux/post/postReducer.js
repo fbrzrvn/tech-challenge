@@ -4,6 +4,7 @@ export const postInitialState = {
   isLoaded: false,
   isLoading: false,
   error: null,
+  posts: [],
 };
 
 const postReducer = (state = postInitialState, action) => {
@@ -26,6 +27,7 @@ const postReducer = (state = postInitialState, action) => {
         ...state,
         isLoading: false,
         isLoaded: true,
+        posts: [...state.posts, action.payload],
       };
 
     case postTypes.FETCH_REQUEST: {
@@ -46,6 +48,7 @@ const postReducer = (state = postInitialState, action) => {
         ...state,
         isLoading: false,
         isLoaded: true,
+        posts: action.payload,
       };
     }
     case postTypes.RESET_POST_STATE: {

@@ -6,3 +6,4 @@ export const signIn = formData => API.post("/sign-in", formData);
 export const signUp = formData => API.post("/sign-up", formData);
 
 export const createPost = post => API.post("/upload-file", post);
+export const fetchPosts = () => API.get("/");
