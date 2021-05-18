@@ -1,13 +1,14 @@
+import { node } from "prop-types";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Button from "../../components/Button";
-import MainLayout from "../../layout/MainLayout";
 import { authSelector } from "../../redux/auth/authSelector";
 import * as ROUTES from "../../routes";
-import { Card, CardBody, CardTitle, LinkWrap } from "./styles";
+import MainLayout from "../MainLayout";
+import { Card, CardBody, CardTitle, Container, LinkWrap } from "./styles";
 
-const Upload = () => {
+const UploadFileLayout = ({ children }) => {
   const { isAuthenticated } = useSelector(authSelector);
   const history = useHistory();
 
@@ -18,7 +19,9 @@ const Upload = () => {
   return (
     <MainLayout>
       {isAuthenticated ? (
-        <h1>Upload a file</h1>
+        <Container>
+          <Card>{children}</Card>
+        </Container>
       ) : (
         <Card>
           <CardTitle>Sign up to continue</CardTitle>
@@ -31,8 +34,13 @@ const Upload = () => {
           </LinkWrap>
         </Card>
       )}
+      ;
     </MainLayout>
   );
 };
 
-export default Upload;
+UploadFileLayout.propTypes = {
+  children: node.isRequired,
+};
+
+export default UploadFileLayout;

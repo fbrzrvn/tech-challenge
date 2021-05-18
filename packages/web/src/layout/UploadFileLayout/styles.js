@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR } from "../../styles/colors";
 
@@ -8,9 +9,14 @@ export const Card = styled.div`
   justify-content: center;
   padding: 32px;
   width: 80%;
+  height: 100%;
   margin: 24px auto;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    padding: 24px 0;
+  }
 `;
 
 export const CardTitle = styled.h1`
@@ -38,5 +44,27 @@ export const LinkWrap = styled.div`
   }
   @media screen and (max-width: 480px) {
     text-align: center;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 24px;
+`;
+
+export const NavbarLink = styled(Link)`
+  margin-right: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: ${COLOR.deepPurple500};
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  &:hover {
+    color: ${COLOR.deepPurple400};
+    transition: all 300ms ease-in-out;
+  }
+  &.active {
+    border-bottom: 3px solid ${COLOR.deepPurple400};
   }
 `;
