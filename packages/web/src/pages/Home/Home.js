@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import PostCard from "../../components/PostCard";
 import MainLayout from "../../layout/MainLayout";
 import { getPosts } from "../../redux/post/postActions";
+import { postSelector } from "../../redux/post/postSelector";
 import { PostContainer, PostWrapper } from "./styles";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector(state => state.post);
+  const { posts } = useSelector(postSelector);
 
   useEffect(() => {
     dispatch(getPosts());
