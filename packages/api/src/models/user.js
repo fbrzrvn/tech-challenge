@@ -19,8 +19,8 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       unique: true,
       validate: {
-        validator: (value) => isEmail(value),
-        message: (props) => `The email ${props.value} is not valid`,
+        validator: value => isEmail(value),
+        message: props => `The email ${props.value} is not valid`,
       },
     },
     password: {
