@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { COLOR } from "../../styles/colors";
 
 export const Card = styled.div`
@@ -41,7 +41,49 @@ export const PostP = styled.p`
   margin: 0 0 10px;
 `;
 
+export const PostFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const PostSpan = styled.span`
   color: ${COLOR.textSecondary};
   font-size: 12px;
+`;
+
+export const PostIcon = styled.button`
+  font-size: 1.5rem;
+  color: ${COLOR.text};
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  &:hover {
+    color: ${COLOR.deepPurple500};
+  }
+`;
+
+const fade = keyframes`
+0% {
+  bottom: 0;
+    opacity: 0;
+}
+50% {
+  bottom: 30px;
+  opacity: 1;
+}
+100% {
+  bottom: 0;
+  opacity: 0;
+}
+`;
+
+export const SuccessMsg = styled.div`
+  color: ${COLOR.success900};
+  background: ${COLOR.success100};
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  animation: 3s ${fade} ease-in-out;
+  padding: 16px;
 `;

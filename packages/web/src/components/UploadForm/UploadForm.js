@@ -8,7 +8,6 @@ import { GIF, JOKE, MEME } from "../../utils/fileTypes";
 import Button from "../Button";
 import {
   Container,
-  ErrorMsg,
   FileInputWrap,
   FormContent,
   FormH1,
@@ -27,6 +26,7 @@ const UploadForm = () => {
   const { currentUser } = useSelector(authSelector);
   const initialState = {
     title: "",
+    url: "",
     description: "",
     media: "",
     category: GIF,
@@ -34,18 +34,11 @@ const UploadForm = () => {
   };
 
   const [formData, setFormData] = useState(initialState);
-  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (formData.category !== JOKE) {
-      if (!formData.media) {
-        setErrors({ media: "A media file is required" });
-        return;
-      }
-    }
     dispatch(createPost(formData));
     history.push("/");
     setFormData(initialState);
@@ -110,7 +103,6 @@ const UploadForm = () => {
               }
               required
             />
-            {errors.title && <ErrorMsg>{errors.title}</ErrorMsg>}
             {formData.category === JOKE ? (
               <>
                 <FormLabel>Description</FormLabel>
@@ -125,25 +117,31 @@ const UploadForm = () => {
                   }
                   required
                 />
-                {errors.description && (
-                  <ErrorMsg>{errors.description}</ErrorMsg>
-                )}
               </>
             ) : (
-              <FileInputWrap>
-                <FormLabel>Upload a file</FormLabel>
-                <FileBase
-                  type="file"
-                  name="media"
-                  multiple={false}
-                  onDone={({ base64 }) =>
-                    setFormData({ ...formData, media: base64 })
+              <>
+                <FormLabel>Url</FormLabel>
+                <FormInput
+                  type="text"
+                  placeholder="Enter a URL"
+                  value={formData.url}
+                  onChange={e =>
+                    setFormData({ ...formData, url: e.target.value })
                   }
                 />
-              </FileInputWrap>
+                <FileInputWrap>
+                  <FormLabel>Upload a file</FormLabel>
+                  <FileBase
+                    type="file"
+                    name="media"
+                    multiple={false}
+                    onDone={({ base64 }) =>
+                      setFormData({ ...formData, media: base64 })
+                    }
+                  />
+                </FileInputWrap>
+              </>
             )}
-            {errors.media && <ErrorMsg>{errors.media}</ErrorMsg>}
-
             <Button>Send</Button>
           </FormWrap>
         </FormContent>
