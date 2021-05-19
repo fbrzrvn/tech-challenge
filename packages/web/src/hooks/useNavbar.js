@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -6,6 +6,13 @@ const useNavbar = () => {
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    return () => {
+      setIsOpen(!isOpen);
+    };
+  }, [isOpen]);
+
   return [isOpen, toggleNavbar];
 };
 
