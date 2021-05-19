@@ -1,15 +1,18 @@
+import moment from "moment";
 import { object } from "prop-types";
 import React from "react";
-import { Card, PostH2, PostImg, PostInfo, PostP } from "./styles";
+import { Card, PostH2, PostImg, PostInfo, PostP, PostSpan } from "./styles";
 
 const PostCard = ({ post }) => {
   return (
     <Card>
-      <PostImg src={post.media} alt={post.title} />
+      {post.category !== "Joke" && (
+        <PostImg src={post.media} alt={post.title} />
+      )}
       <PostInfo>
         <PostH2>{post.title}</PostH2>
-        <PostP>{post.description}</PostP>
-        <PostP>{post.category}</PostP>
+        {post.category === "Joke" && <PostP joke>{post.description}</PostP>}
+        <PostSpan>{moment(post.createdAt).fromNow()}</PostSpan>
       </PostInfo>
     </Card>
   );

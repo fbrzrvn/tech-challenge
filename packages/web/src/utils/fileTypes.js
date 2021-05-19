@@ -1,3 +1,3 @@
-export const GIF = "gif";
-export const JOKE = "joke";
-export const MEME = "meme";
+export const GIF = "Gif";
+export const JOKE = "Joke";
+export const MEME = "Meme";

@@ -31,10 +31,9 @@ export const FormContent = styled.div`
 
 export const FormH1 = styled.h1`
   color: ${COLOR.deepPurple500};
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 700;
   text-align: center;
-  max-width: 80%;
   margin: 24px auto;
   @media screen and (max-width: 480px) {
     font-size: 32px;
@@ -146,5 +145,19 @@ export const LinkWrap = styled.div`
   }
   @media screen and (max-width: 480px) {
     text-align: center;
+  }
+`;
+
+export const ErrorMsg = styled.p`
+  color: ${COLOR.danger900};
+  background: ${COLOR.danger100};
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: -8px 0 24px;
+  padding: 16px;
+  &.last {
+    margin-top: -24px;
+    margin-bottom: 32px;
   }
 `;

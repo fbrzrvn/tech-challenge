@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authSelector } from "../../redux/auth/authSelector";
 import { createPost } from "../../redux/post/postActions";
+import { GIF, JOKE, MEME } from "../../utils/fileTypes";
 import Button from "../Button";
 import {
   Container,
+  ErrorMsg,
   FileInputWrap,
   FormContent,
   FormH1,
@@ -15,10 +17,10 @@ import {
   FormTextarea,
   FormWrap,
   FormWrapper,
-  Select,
-  SelectWrap,
   RadioButton,
   RadioButtonLabel,
+  Select,
+  SelectWrap,
 } from "./styles";
 
 const UploadForm = () => {
@@ -27,16 +29,23 @@ const UploadForm = () => {
     title: "",
     description: "",
     media: "",
-    category: "Gif",
+    category: GIF,
     author: currentUser.user._id,
   };
 
   const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
+    if (formData.category !== JOKE) {
+      if (!formData.media) {
+        setErrors({ media: "A media file is required" });
+        return;
+      }
+    }
     dispatch(createPost(formData));
     history.push("/");
     setFormData(initialState);
@@ -46,7 +55,7 @@ const UploadForm = () => {
     <Container>
       <FormWrapper>
         <FormContent>
-          <FormH1>Create a new Post</FormH1>
+          <FormH1>Create a new post</FormH1>
           <FormWrap onSubmit={handleSubmit}>
             <FormLabel>Category</FormLabel>
             <SelectWrap>
@@ -54,8 +63,8 @@ const UploadForm = () => {
                 <RadioButton
                   type="radio"
                   name="radio"
-                  value="Gif"
-                  checked={formData.category === "Gif"}
+                  value={GIF}
+                  checked={formData.category === GIF}
                   onChange={e =>
                     setFormData({ ...formData, category: e.target.value })
                   }
@@ -67,8 +76,8 @@ const UploadForm = () => {
                 <RadioButton
                   type="radio"
                   name="radio"
-                  value="Meme"
-                  checked={formData.category === "Meme"}
+                  value={MEME}
+                  checked={formData.category === MEME}
                   onChange={e =>
                     setFormData({ ...formData, category: e.target.value })
                   }
@@ -80,8 +89,8 @@ const UploadForm = () => {
                 <RadioButton
                   type="radio"
                   name="radio"
-                  value="Joke"
-                  checked={formData.category === "Joke"}
+                  value={JOKE}
+                  checked={formData.category === JOKE}
                   onChange={e =>
                     setFormData({ ...formData, category: e.target.value })
                   }
@@ -99,8 +108,10 @@ const UploadForm = () => {
               onChange={e =>
                 setFormData({ ...formData, title: e.target.value })
               }
+              required
             />
-            {formData.category === "Joke" ? (
+            {errors.title && <ErrorMsg>{errors.title}</ErrorMsg>}
+            {formData.category === JOKE ? (
               <>
                 <FormLabel>Description</FormLabel>
                 <FormTextarea
@@ -112,7 +123,11 @@ const UploadForm = () => {
                   onChange={e =>
                     setFormData({ ...formData, description: e.target.value })
                   }
+                  required
                 />
+                {errors.description && (
+                  <ErrorMsg>{errors.description}</ErrorMsg>
+                )}
               </>
             ) : (
               <FileInputWrap>
@@ -127,6 +142,7 @@ const UploadForm = () => {
                 />
               </FileInputWrap>
             )}
+            {errors.media && <ErrorMsg>{errors.media}</ErrorMsg>}
 
             <Button>Send</Button>
           </FormWrap>

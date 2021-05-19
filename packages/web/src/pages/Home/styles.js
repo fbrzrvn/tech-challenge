@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLOR } from "../../styles/colors";
 
 export const PostContainer = styled.div`
-  background: ${COLOR.navbar};
+  background: ${COLOR.background};
   display: flex;
   flex-direction: column;
   align-items: center;
