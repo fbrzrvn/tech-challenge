@@ -5,7 +5,7 @@ import { SearchContainer, SearchIcon, SearchInput } from "./styles";
 const SearchBar = () => {
   return (
     <SearchContainer>
-      <SearchInput type="search" placeholder="Search" />
+      <SearchInput type="text" placeholder="Search" />
       <SearchIcon>
         <AiOutlineSearch />
       </SearchIcon>

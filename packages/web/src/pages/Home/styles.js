@@ -17,16 +17,11 @@ export const PostContainer = styled.div`
 `;
 
 export const PostWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   grid-gap: 16px;
   margin: 0 auto;
   max-width: 1100px;
-  @media screen and (max-width: 1100px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media screen and (max-width: 670px) {
-    grid-template-columns: 1fr;
-  }
 `;

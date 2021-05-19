@@ -23,8 +23,7 @@ export const SearchInput = styled.input`
   border-radius: 10px;
   border: 1px solid ${COLOR.textSecondary};
   margin: auto;
-  padding: 0.3em 1em;
-  font-size: large;
+  padding: 0.5em 1em;
   font-weight: 500;
   overflow: hidden;
   outline: none;
@@ -41,5 +40,6 @@ export const SearchInput = styled.input`
 export const SearchIcon = styled.div`
   position: absolute;
   right: 0.5em;
+  color: ${COLOR.text};
   cursor: pointer;
 `;
