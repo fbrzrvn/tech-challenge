@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import Button from "../../components/Button";
 import PostCard from "../../components/PostCard";
 import { postSelector } from "../../redux/post/postSelector";
 import * as ROUTES from "../../routes";
+import { GIF, JOKE, MEME } from "../../utils/fileTypes";
 import {
   Nav,
   NavContainer,
@@ -10,6 +12,7 @@ import {
   PostWrapper,
   ResultContainer,
   ResultH2,
+  ResultWrapper,
   SearchInput,
   SearchWrap,
 } from "./styles";
@@ -31,6 +34,15 @@ const Search = () => {
     setFindResult(foundPost);
   }, [posts, searchQuery]);
 
+  const handleFilter = e => {
+    const foundPost = posts
+      .filter(post =>
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      .filter(post => post.category === e.target.id);
+    setFindResult(foundPost);
+  };
+
   return (
     <>
       <Nav>
@@ -46,23 +58,38 @@ const Search = () => {
           </SearchWrap>
         </NavContainer>
       </Nav>
-      {!searchQuery ? (
-        <ResultContainer>
+      <ResultContainer>
+        {!searchQuery ? (
           <ResultH2>Search for something...</ResultH2>
-        </ResultContainer>
-      ) : (
-        <ResultContainer>
-          <ResultH2>
-            {findResult.length} result for {searchQuery}
-          </ResultH2>
-          <PostWrapper>
-            {findResult.length > 0 &&
-              findResult.map(result => (
-                <PostCard key={result._id} post={result} />
-              ))}
-          </PostWrapper>
-        </ResultContainer>
-      )}
+        ) : (
+          <>
+            <ResultH2>
+              {findResult.length > 0
+                ? ` ${
+                    findResult.length
+                  } result for ${searchQuery.toUpperCase()}`
+                : "No result was found."}
+            </ResultH2>
+            <ResultWrapper>
+              <Button id={GIF} onClick={handleFilter}>
+                Gif
+              </Button>
+              <Button id={JOKE} onClick={handleFilter}>
+                Joke
+              </Button>
+              <Button id={MEME} onClick={handleFilter}>
+                Meme
+              </Button>
+            </ResultWrapper>
+            <PostWrapper>
+              {findResult.length > 0 &&
+                findResult.map(result => (
+                  <PostCard key={result._id} post={result} />
+                ))}
+            </PostWrapper>
+          </>
+        )}
+      </ResultContainer>
     </>
   );
 };
