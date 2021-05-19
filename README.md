@@ -1,4 +1,4 @@
-# Monorepo template for fullstack projects.
+# Jokes app build using MERN stack.
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
@@ -6,10 +6,13 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Template
+## The project
 
-This is a monorepo created with Yarn workspaces. The packages are `api` and
-`web`.
+This project is focus on Memes and Gifs web page in which users can upload their
+files and share it with everyone.
+
+Was build like a monorepo created with Yarn workspaces. The packages are `api`
+and `web`.
 
 The `web` package will be run by default in the following url:
 `http://localhost:3000`.
