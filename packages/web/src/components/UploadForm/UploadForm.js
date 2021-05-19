@@ -142,7 +142,7 @@ const UploadForm = () => {
                 </FileInputWrap>
               </>
             )}
-            <Button>Send</Button>
+            <Button primary>Send</Button>
           </FormWrap>
         </FormContent>
       </FormWrapper>

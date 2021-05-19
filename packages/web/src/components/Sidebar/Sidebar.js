@@ -32,7 +32,9 @@ const Sidebar = ({ toggleNavbar, isOpen }) => {
         <CloseIcon />
       </Icon>
       <SidebarWrapper>
-        <SearchBar />
+        <SidebarLink to={ROUTES.SEARCH}>
+          <SearchBar />
+        </SidebarLink>
         <SidebarMenu>
           <SidebarLink to={ROUTES.GIF} onClick={toggleNavbar}>
             Gifs
@@ -47,7 +49,7 @@ const Sidebar = ({ toggleNavbar, isOpen }) => {
             Upload
           </SidebarLink>
           <SidebarBtn>
-            <Button onClick={handleClick}>
+            <Button primary onClick={handleClick}>
               {isAuthenticated ? "Logout" : "Login"}
             </Button>
           </SidebarBtn>

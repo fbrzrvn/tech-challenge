@@ -129,7 +129,9 @@ const SignUpForm = () => {
               <ErrorMsg>{errors.confirmPassword.message}</ErrorMsg>
             )}
             {signUpError && <ErrorMsg>{signUpError}</ErrorMsg>}
-            <Button disabled={isSigningUp}>Sign In</Button>
+            <Button primary disabled={isSigningUp}>
+              Sign In
+            </Button>
             <LinkWrap>
               <Link to={ROUTES.SIGN_IN}>Already have an account? Sign In</Link>
             </LinkWrap>

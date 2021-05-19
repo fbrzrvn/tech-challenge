@@ -72,7 +72,7 @@ export const NavbarLink = styled(NavLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0 10px;
   height: 100%;
   cursor: pointer;
   transition: all 300ms ease-in-out;
@@ -81,7 +81,10 @@ export const NavbarLink = styled(NavLink)`
     transition: all 300ms ease-in-out;
   }
   &.active {
-    color: ${COLOR.deepPurple500};
-    font-weight: 600;
+    border-bottom: 3px solid ${COLOR.deepPurple500};
   }
+`;
+
+export const NavbarBtn = styled.div`
+  margin-left: 16px;
 `;

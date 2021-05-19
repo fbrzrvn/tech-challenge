@@ -2,10 +2,13 @@ import styled from "styled-components";
 import { COLOR } from "../../styles/colors";
 
 const Button = styled.button`
-  background: ${COLOR.deepPurple500};
-  color: ${COLOR.background};
+  background: ${({ primary }) =>
+    primary ? `${COLOR.deepPurple500}` : `${COLOR.background}`};
+  color: ${({ primary }) =>
+    primary ? `${COLOR.background}` : `${COLOR.deepPurple500}`};
   padding: 12px 30px;
-  border: none;
+  border: ${({ primary }) =>
+    primary ? "none" : `1px solid ${COLOR.deepPurple500}`};
   border-radius: 10px;
   font-size: 16px;
   white-space: nowrap;
@@ -17,7 +20,9 @@ const Button = styled.button`
   transition: all 300ms ease-in-out;
   &:hover {
     transition: all 300ms ease-in-out;
-    background: ${COLOR.deepPurple400};
+    background: ${({ primary }) =>
+      primary ? `${COLOR.deepPurple400}` : `${COLOR.deepPurple500}`};
+    color: ${COLOR.background};
   }
 `;
 

@@ -28,7 +28,9 @@ const UploadFileLayout = ({ children }) => {
           <CardBody>
             You&apos;ll need to sign in before upload any content
           </CardBody>
-          <Button onClick={handleClick}>Sign In</Button>
+          <Button primary onClick={handleClick}>
+            Sign In
+          </Button>
           <LinkWrap>
             <Link to={ROUTES.SIGN_UP}>Don&apos;t have an account? Sign Up</Link>
           </LinkWrap>

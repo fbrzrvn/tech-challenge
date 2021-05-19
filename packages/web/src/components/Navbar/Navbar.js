@@ -12,6 +12,7 @@ import SearchBar from "../SearchBar";
 import {
   MobileIcon,
   Nav,
+  NavbarBtn,
   NavbarLink,
   NavContainer,
   NavItem,
@@ -54,9 +55,11 @@ const Navbar = ({ toggleNavbar }) => {
           <NavItem>
             <NavbarLink to={ROUTES.UPLOAD_FILE}>Upload</NavbarLink>
           </NavItem>
-          <Button onClick={handleClick}>
-            {isAuthenticated ? "Logout" : "Login"}
-          </Button>
+          <NavbarBtn>
+            <Button primary onClick={handleClick}>
+              {isAuthenticated ? "Logout" : "Sign In"}
+            </Button>
+          </NavbarBtn>
         </NavMenu>
       </NavContainer>
     </Nav>
