@@ -36,7 +36,11 @@ const Navbar = ({ toggleNavbar }) => {
         <MobileIcon onClick={toggleNavbar}>
           <AiOutlineMenu />
         </MobileIcon>
-        {width > 768 && <SearchBar />}
+        {width > 768 && (
+          <NavbarLink to={ROUTES.SEARCH}>
+            <SearchBar />
+          </NavbarLink>
+        )}
         <NavMenu>
           <NavItem>
             <NavbarLink to={ROUTES.GIF}>Gifs</NavbarLink>
