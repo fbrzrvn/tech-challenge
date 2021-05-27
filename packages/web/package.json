@@ -22,13 +22,13 @@
     {
       "name": "Fabrizio Ervini",
       "email": "fabri.es018@gmail.com",
-      "url": "https://faberdev.netlify.app/"
+      "url": "https://fabrizioervini.com/"
     }
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fab-rvn/monorepo.git"
+    "url": "https://github.com/fab-rvn/tech-challenge.git"
   },
   "eslintConfig": {
     "extends": [
